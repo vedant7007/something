@@ -21,6 +21,11 @@
       min-height: 100vh;
     }
 
+    .parallax {
+      transform: translateZ(-1px) scale(2);
+      z-index: -1;
+    }
+
     .intro-screen {
       position: fixed;
       top: 0;
@@ -131,6 +136,12 @@
       animation: fadeWord 0.5s ease forwards;
       position: relative;
       cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .word:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px #00c8ff, 0 0 40px #ff69b4;
     }
 
     .word:hover::after {
@@ -147,12 +158,28 @@
       white-space: nowrap;
       box-shadow: 0 0 10px #00c8ff;
       z-index: 1000;
+      animation: sparkle 0.5s ease forwards;
     }
 
     @keyframes fadeWord {
       to {
         opacity: 1;
         transform: translateY(0);
+      }
+    }
+
+    @keyframes sparkle {
+      0% {
+        opacity: 0;
+        transform: translateX(-50%) scale(0.8);
+      }
+      50% {
+        opacity: 1;
+        transform: translateX(-50%) scale(1.1);
+      }
+      100% {
+        opacity: 1;
+        transform: translateX(-50%) scale(1);
       }
     }
 
@@ -176,22 +203,24 @@
       position: fixed;
       width: 20px;
       height: 20px;
-      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ff69b4"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>') no-repeat center center / contain;
       pointer-events: none;
       animation: fadeOut 1s ease forwards;
       z-index: 9999;
       transform-origin: center;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ff69b4"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>') no-repeat center center / contain;
+      filter: drop-shadow(0 0 5px currentColor);
     }
 
     .falling-heart {
       position: fixed;
-      width: 20px;
-      height: 20px;
-      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ff69b4"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>') no-repeat center center / contain;
+      width: 30px;
+      height: 30px;
       pointer-events: none;
       z-index: 1;
-      animation: falling 4s linear infinite;
+      animation: falling 6s linear infinite;
       opacity: 0.9;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ff69b4"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>') no-repeat center center / contain;
+      filter: drop-shadow(0 0 8px currentColor);
     }
 
     @keyframes falling {
@@ -362,35 +391,51 @@
       const heart = document.createElement('div');
       heart.className = 'falling-heart';
       
-      // Random position along the top of the screen
-      heart.style.left = Math.random() * 100 + 'vw';
+      // Random position across the entire width
+      heart.style.left = Math.random() * window.innerWidth + 'px';
       
-      // Random size between 20px and 40px
-      const size = Math.random() * 20 + 20;
+      // Random size between 30px and 50px
+      const size = Math.random() * 20 + 30;
       heart.style.width = size + 'px';
       heart.style.height = size + 'px';
       
-      // Random animation duration between 3s and 5s
-      heart.style.animationDuration = Math.random() * 2 + 3 + 's';
+      // Random color from pink to red
+      const colors = ['#ff69b4', '#ff1493', '#ff6b6b', '#ff4757', '#ff0000', '#ff99ff', '#ff66cc'];
+      heart.style.color = colors[Math.floor(Math.random() * colors.length)];
+      
+      // Random animation duration between 4s and 8s
+      heart.style.animationDuration = Math.random() * 4 + 4 + 's';
       
       document.body.appendChild(heart);
       
       // Remove heart after animation completes
       setTimeout(() => {
-        heart.remove();
-      }, 6000);
+        if (heart.parentNode) {
+          heart.parentNode.removeChild(heart);
+        }
+      }, 8000);
     }
 
     // Create hearts periodically
     function startFallingHearts() {
-      // Create initial hearts
-      for (let i = 0; i < 30; i++) {
-        setTimeout(createFallingHeart, i * 100);
+      // Clear any existing intervals
+      if (window.heartInterval) {
+        clearInterval(window.heartInterval);
       }
       
-      // Continue creating hearts every 0.5 seconds
-      setInterval(createFallingHeart, 500);
+      // Create initial hearts
+      for (let i = 0; i < 100; i++) {
+        setTimeout(createFallingHeart, i * 50);
+      }
+      
+      // Continue creating hearts every 0.2 seconds
+      window.heartInterval = setInterval(createFallingHeart, 200);
     }
+
+    // Start falling hearts as soon as the page loads
+    document.addEventListener('DOMContentLoaded', () => {
+      startFallingHearts();
+    });
 
     function startLove() {
       document.getElementById('introScreen').style.opacity = 0;
@@ -407,7 +452,7 @@
       container.innerHTML = '';
       container.style.opacity = 1;
       
-      // Start the falling hearts animation
+      // Restart the falling hearts animation
       startFallingHearts();
       
       wordsWithDescriptions.forEach(([word, desc], index) => {
@@ -431,23 +476,22 @@
       kdramaLine.style.opacity = 1;
     }
 
-    let lastMouseMove = 0;
-    let mouseX = 0;
-    let mouseY = 0;
-    let lastHeartTime = 0;
-
     function createCursorHeart(x, y) {
       const heart = document.createElement('div');
       heart.className = 'cursor-heart';
       
       // Center the heart on the cursor
-      heart.style.left = (x - 10) + 'px';
-      heart.style.top = (y - 10) + 'px';
+      heart.style.left = x + 'px';
+      heart.style.top = y + 'px';
       
       // Random size between 15px and 25px
       const size = Math.random() * 10 + 15;
       heart.style.width = size + 'px';
       heart.style.height = size + 'px';
+      
+      // Random color from pink to red
+      const colors = ['#ff69b4', '#ff1493', '#ff6b6b', '#ff4757', '#ff0000'];
+      heart.style.color = colors[Math.floor(Math.random() * colors.length)];
       
       document.body.appendChild(heart);
       
@@ -459,14 +503,15 @@
       }, 1000);
     }
 
+    let lastHeartTime = 0;
+    const heartDelay = 50; // Minimum time between hearts in milliseconds
+
     document.addEventListener('mousemove', e => {
       const now = Date.now();
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-
-      // Create hearts more frequently but with better spacing
-      if (now - lastHeartTime > 50) {
-        createCursorHeart(mouseX, mouseY);
+      
+      // Create hearts with proper spacing
+      if (now - lastHeartTime > heartDelay) {
+        createCursorHeart(e.clientX, e.clientY);
         lastHeartTime = now;
       }
     });
