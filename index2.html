@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>For Thanishka 💖</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #0a0f2c, #0b1d3a);
+      overflow-x: hidden;
+      color: #fff;
+      position: relative;
+      min-height: 100vh;
+    }
+
+    .intro-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: linear-gradient(145deg, #000028, #210033);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      z-index: 9999;
+      transition: opacity 1s ease;
+    }
+
+    .intro-screen h1 {
+      font-size: 3em;
+      font-family: 'Pacifico', cursive;
+      color: #ff99ff;
+      text-shadow: 0 0 20px #ff99ff, 0 0 40px #cc66ff;
+      animation: slideIn 2s ease forwards;
+    }
+
+    .intro-screen button {
+      margin-top: 30px;
+      padding: 15px 30px;
+      font-size: 1.1em;
+      background: #00c8ff;
+      color: #000;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 0 20px #00c8ff;
+      transition: transform 0.3s ease;
+    }
+
+    .intro-screen button:hover {
+      transform: scale(1.1);
+    }
+
+    @keyframes slideIn {
+      0% {
+        opacity: 0;
+        transform: translateY(-100px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero {
+      text-align: center;
+      padding: 60px 20px;
+      background: linear-gradient(to right, #001f3f, #003366);
+      color: #fff;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero h1 {
+      font-family: 'Pacifico', cursive;
+      font-size: 3em;
+      color: #82cfff;
+      text-shadow: 2px 2px 20px #00c8ff;
+    }
+
+    .hero button {
+      margin-top: 20px;
+      padding: 15px 30px;
+      font-size: 1.1em;
+      background: #00c8ff;
+      color: #000;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 0 10px #00c8ff;
+      transition: transform 0.3s ease;
+    }
+
+    .hero button:hover {
+      transform: scale(1.05);
+    }
+
+    .words-section {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      padding: 60px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+      opacity: 0;
+      transition: opacity 2s ease;
+    }
+
+    .word {
+      background: rgba(0, 255, 255, 0.1);
+      border: 2px solid #00c8ff;
+      border-radius: 15px;
+      padding: 10px 20px;
+      font-size: 1.2em;
+      color: #82cfff;
+      box-shadow: 0 4px 15px rgba(0,255,255,0.3);
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeWord 0.5s ease forwards;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .word:hover::after {
+      content: attr(data-desc);
+      position: absolute;
+      bottom: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.8);
+      color: #fff;
+      font-size: 0.9em;
+      padding: 5px 10px;
+      border-radius: 8px;
+      white-space: nowrap;
+      box-shadow: 0 0 10px #00c8ff;
+      z-index: 1000;
+    }
+
+    @keyframes fadeWord {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .footer {
+      text-align: center;
+      padding: 60px 20px;
+      background-color: #00152e;
+      color: #82cfff;
+    }
+
+    .footer h2 {
+      font-size: 1.5em;
+      margin-bottom: 10px;
+    }
+
+    .footer p {
+      font-size: 1em;
+    }
+
+    .cursor-heart {
+      position: fixed;
+      width: 20px;
+      height: 20px;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ff69b4"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>') no-repeat center center / contain;
+      pointer-events: none;
+      animation: fadeOut 1s ease forwards;
+      z-index: 9999;
+      transform-origin: center;
+    }
+
+    .falling-heart {
+      position: fixed;
+      width: 20px;
+      height: 20px;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ff69b4"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>') no-repeat center center / contain;
+      pointer-events: none;
+      z-index: 1;
+      animation: falling 4s linear infinite;
+      opacity: 0.9;
+    }
+
+    @keyframes falling {
+      0% {
+        transform: translateY(-100px) rotate(0deg);
+        opacity: 0.9;
+      }
+      100% {
+        transform: translateY(calc(100vh + 100px)) rotate(720deg);
+        opacity: 0;
+      }
+    }
+
+    @keyframes fadeOut {
+      0% { 
+        opacity: 1; 
+        transform: scale(1) rotate(0deg);
+      }
+      100% { 
+        opacity: 0; 
+        transform: scale(0.5) rotate(180deg);
+      }
+    }
+
+    .kdrama-line {
+      margin-top: 20px;
+      font-size: 1.5em;
+      font-family: 'Pacifico', cursive;
+      color: #ff99ff;
+      animation: fadeInSlide 3s ease forwards;
+      opacity: 0;
+    }
+
+    @keyframes fadeInSlide {
+      0% {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="intro-screen" id="introScreen">
+    <h1>Welcome Thanishka 💖</h1>
+    <button onclick="startLove()">Start the Love??✨</button>
+  </div>
+
+  <div class="hero" id="mainContent" style="display:none">
+    <h1>Small effort for My Thanishka 💙</h1>
+    <p style="margin-top: 10px; font-size: 1.2em; color: #aaa;">For the girl who stole my heart and made life more happy✨</p>
+    <button onclick="showWords()">Click here for your surprise🎁</button>
+    <div class="kdrama-line" id="kdramaLine"></div>
+  </div>
+
+  <div class="words-section" id="words"></div>
+
+  <div class="footer">
+    <h2>You're My Love thanishka , My Pichi Pilla💞</h2>
+    <p>Made with love by your chutiyaa. Love you forever, Thanishka. 💘</p>
+  </div>
+
+  <script>
+    const wordsWithDescriptions = [
+      ["Beautiful", "You radiate grace without even trying."],
+      ["Radiant", "Like sunlight pouring through morning curtains."],
+      ["Stunning", "Your beauty stops time for me."],
+      ["Gorgeous", "Every glance of you feels so magical."],
+      ["Angelic", "Just like an angel from the heavens."],
+      ["Elegant", "Grace in every gesture."],
+      ["Enchanting", "You have a spell on my heart."],
+      ["Lovely", "A word made just for you."],
+      ["Mesmerizing", "Can't look away when you're near."],
+      ["Captivating", "You capture every heartbeat."],
+      ["Graceful", "Like poetry in motion."],
+      ["Alluring", "You pull me in like a beautiful dream."],
+      ["Breathtaking", "Every breath I take is for you."],
+      ["Exquisite", "Like fine art — rare and precious."],
+      ["Divine", "Heaven celebrated when you were made."],
+      ["Irresistible", "My heart doesn't stand a chance."],
+      ["Adorable", "Cutest soul I've ever met."],
+      ["Pretty", "More than looks — it's your vibe."],
+      ["Glowing", "You light up my whole world."],
+      ["Sparkling", "Shiny like your laugh and the smile."],
+      ["Cute", "Like your face when you smile."],
+      ["Shimmering", "You reflect everything good in life."],
+      ["Ravishing", "More stunning than I can describe."],
+      ["Magical", "A fairy tale in real life."],
+      ["Delicate", "Soft like rose petals."],
+      ["Dazzling", "Blinding me with beauty."],
+      ["Dreamy", "You're my forever daydream."],
+      ["Ethereal", "Not of this world, like you."],
+      ["Sensational", "You awaken every sense."],
+      ["Vibrant", "Full of energy and love."],
+      ["Fairylike", "Sprinkling charm wherever you go."],
+      ["Winsome", "Charming in the gentlest way."],
+      ["Seductive", "You pull me in every time."],
+      ["Precious", "I'll always treasure you."],
+      ["Classy", "Timeless and stunning."],
+      ["Glamorous", "Red carpet vibes, always."],
+      ["Striking", "You make heads turn."],
+      ["Sweet", "Like sugar and you."],
+      ["Luminous", "You shine from within."],
+      ["Fierce", "Powerful and passionate."],
+      ["Bold", "Unapologetically you."],
+      ["Soft", "Hug-level comfort."],
+      ["Tender", "Warm and full of love."],
+      ["Angel-faced", "That face says it all... wow."],
+      ["Dainty", "Gentle, sweet and precious."],
+      ["Heavenly", "The stars envy you."],
+      ["Artistic", "You're a masterpiece."],
+      ["Hypnotic", "Your eyes are spells."],
+      ["Shining", "Always glowing in my eyes."],
+      ["Gloomy", "Even your angry face is cute."],
+      ["Pure", "Like first snow on a mountain."],
+      ["Soft-spoken", "Your calm voice soothes everything."],
+      ["Warm", "Like morning sun or a hug."],
+      ["Darling", "You're my favorite human word."],
+      ["Flawless", "Inside and out."],
+      ["Charismatic", "Everyone's drawn to you."],
+      ["Charming", "You win hearts effortlessly."],
+      ["Serene", "Peace follows where you walk."],
+      ["Melodic", "Even your laugh is music."],
+      ["Tempting", "Hard to look away."],
+      ["Rare", "One in forever."],
+      ["Silky", "Like your soft hands and hairs."],
+      ["Youthful", "Always fresh and full of life."],
+      ["Joyful", "You're pure sunshine."],
+      ["Symphonic", "You're harmony in human form."],
+      ["Lustrous", "Shining from soul to smile."],
+      ["Kind-eyed", "Your eyes speak comfort."],
+      ["Peaceful", "Like quiet rain on windows."],
+      ["Intoxicating", "Like wine, but better."],
+      ["Natural", "Effortless beauty."],
+      ["Inspiring", "You push me to be better."],
+      ["Radiating", "Energy of love and light."],
+      ["Poised", "Always graceful."],
+      ["Noble", "A queen in every sense."],
+      ["Iconic", "You're a legend to me."],
+      ["Endearing", "Impossible not to love."],
+      ["Smiling", "You light up worlds by tht smile."],
+      ["Sweetheart", "That's you, always."],
+      ["Delighting", "You make me smile nonstop."],
+      ["Flowery", "Gentle, bright, and blooming."],
+      ["Unique", "Nobody like you."],
+      ["Balanced", "Grace in emotion and thought."],
+      ["Playful", "Your teasing makes me melt."],
+      ["Mesmeric", "You have that magic stare."],
+      ["Huggable", "All I wanna do."],
+      ["Bubbly", "So full of joy."],
+      ["Mysterious", "There's always more to love."],
+      ["Silhouette", "Even your shadow is art."],
+      ["Shy", "That blush? 💘"],
+      ["Irreplaceable", "There's only one YOU."],
+      ["Sunshine", "You make my days golden."],
+      ["Poetic", "Every line is about you."],
+      ["Sparkly", "Like stars in your eyes."],
+      ["Wholesome", "You heal hearts by existing."],
+      ["Soft-hearted", "Too sweet for this world."],
+      ["Starry", "Your soul's made of stars."]
+    ];
+
+    // Create falling hearts
+    function createFallingHeart() {
+      const heart = document.createElement('div');
+      heart.className = 'falling-heart';
+      
+      // Random position along the top of the screen
+      heart.style.left = Math.random() * 100 + 'vw';
+      
+      // Random size between 20px and 40px
+      const size = Math.random() * 20 + 20;
+      heart.style.width = size + 'px';
+      heart.style.height = size + 'px';
+      
+      // Random animation duration between 3s and 5s
+      heart.style.animationDuration = Math.random() * 2 + 3 + 's';
+      
+      document.body.appendChild(heart);
+      
+      // Remove heart after animation completes
+      setTimeout(() => {
+        heart.remove();
+      }, 6000);
+    }
+
+    // Create hearts periodically
+    function startFallingHearts() {
+      // Create initial hearts
+      for (let i = 0; i < 30; i++) {
+        setTimeout(createFallingHeart, i * 100);
+      }
+      
+      // Continue creating hearts every 0.5 seconds
+      setInterval(createFallingHeart, 500);
+    }
+
+    function startLove() {
+      document.getElementById('introScreen').style.opacity = 0;
+      setTimeout(() => {
+        document.getElementById('introScreen').style.display = 'none';
+        document.getElementById('mainContent').style.display = 'block';
+      }, 1000);
+    }
+
+    function showWords() {
+      const container = document.getElementById('words');
+      if (container.style.opacity === '1') return;
+      
+      container.innerHTML = '';
+      container.style.opacity = 1;
+      
+      // Start the falling hearts animation
+      startFallingHearts();
+      
+      wordsWithDescriptions.forEach(([word, desc], index) => {
+        const div = document.createElement('div');
+        div.className = 'word';
+        div.textContent = word;
+        div.setAttribute('data-desc', desc);
+        div.style.animationDelay = `${index * 0.03}s`;
+        container.appendChild(div);
+      });
+
+      const kdramaLine = document.getElementById('kdramaLine');
+      const lines = [
+        "You're my favorite episode every day.",
+        "Our love is gonna be there yesterday , today , tomorrow!",
+        "You're my leading lady, always.",
+        "If I were in a K-Drama, you'd be the plot twist I never saw coming 💫"
+      ];
+      const randomLine = lines[Math.floor(Math.random() * lines.length)];
+      kdramaLine.textContent = randomLine;
+      kdramaLine.style.opacity = 1;
+    }
+
+    let lastMouseMove = 0;
+    let mouseX = 0;
+    let mouseY = 0;
+    let lastHeartTime = 0;
+
+    function createCursorHeart(x, y) {
+      const heart = document.createElement('div');
+      heart.className = 'cursor-heart';
+      
+      // Center the heart on the cursor
+      heart.style.left = (x - 10) + 'px';
+      heart.style.top = (y - 10) + 'px';
+      
+      // Random size between 15px and 25px
+      const size = Math.random() * 10 + 15;
+      heart.style.width = size + 'px';
+      heart.style.height = size + 'px';
+      
+      document.body.appendChild(heart);
+      
+      // Remove heart after animation completes
+      setTimeout(() => {
+        if (heart.parentNode) {
+          heart.parentNode.removeChild(heart);
+        }
+      }, 1000);
+    }
+
+    document.addEventListener('mousemove', e => {
+      const now = Date.now();
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+
+      // Create hearts more frequently but with better spacing
+      if (now - lastHeartTime > 50) {
+        createCursorHeart(mouseX, mouseY);
+        lastHeartTime = now;
+      }
+    });
+
+    // Clean up any stray hearts when mouse leaves the window
+    document.addEventListener('mouseleave', () => {
+      const hearts = document.querySelectorAll('.cursor-heart');
+      hearts.forEach(heart => {
+        if (heart.parentNode) {
+          heart.parentNode.removeChild(heart);
+        }
+      });
+    });
+  </script>
+</body>
+</html>
